@@ -5,6 +5,15 @@ label ch0_main:
     scene bg corridor
     with dissolve_scene_full
 
+    menu:
+        "Are you using ExPoser Previewer?"
+        "Yes":
+            while True:
+                " "
+        "No":
+            pass
+    
+
     $ s_name = "Sayori"
     "...What?"
     "Why am I here?"

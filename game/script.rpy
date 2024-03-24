@@ -73,9 +73,15 @@ label start:
 
         call ch01_end
 
-        call poem
+        $ writefile("TmV3IEZpbGU=")
 
-        $ d_name = "Girl 4"
+        $ restore_character("nastya","kotonoha","libitina")
+
+        $ newchars = True
+
+        $ d_name = "???"
+        
+        call poem
 
     #     ## Day 2
         $ chapter = 2

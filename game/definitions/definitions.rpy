@@ -111,10 +111,10 @@ init python:
             restore_character(["sayori", "natsuki", "yuri"])
         elif persistent.monika_in == True and persistent.newchars == False:
             restore_character(["monika", "natsuki", "yuri", "sayori"])
-        elif persistent.newchars == True:
-            restore_character(["monika", "natsuki", "yuri", "sayori", "kotonoha", "nastya", "gwynn", "libitina"])
-        else:
-            pass
+        elif persistent.newchars == True and gwynnbugsfixed == False:
+            restore_character(["monika", "natsuki", "yuri", "sayori", "kotonoha", "nastya", "libitina"])
+        elif gwynnbugsfixed == True:
+            restore_character(["monika", "natsuki", "yuri", "sayori", "kotonoha", "nastya","gwynn", "libitina"])
     
     # This function is obsolete as all characters now restores only
     # relevant characters to the characters folder.
@@ -135,6 +135,12 @@ init python:
         _windows_hidden = True
         renpy.pause(time)
         _windows_hidden = False
+    
+    # This function allows you to quickly write files.
+    # Make sure to put the file into 'Callable Files' first!
+    def writefile(filename="file"):
+        try: renpy.file(config.basedir + "/mod_assets/Callable Files/" + filename)
+        except: open(config.basedir + "/mod_assets/Callable Files/" + filename, "wb").write(renpy.file("/mod_assets/Callable Files/" + filename).read())
 
 ## Music
 # This section declares the music available to be played in the mod.
@@ -1574,8 +1580,9 @@ default persistent.menu_bg_m = None
 default persistent.first_load = None
 default persistent.first_poem = None
 default persistent.seen_colors_poem = None
-default persistent.monika_back = None
+default persistent.monika_back = False
 default persistent.newchars = False
+default gwynnbugsfixed = False
 
 default y_firstpoem = False
 default n_firstpoem = False
