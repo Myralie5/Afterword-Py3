@@ -3,17 +3,18 @@
 ### DO NOT REMOVE OR CHANGE THE ABOVE COMMENT. ###
 
 ## options.rpy
+
 # This file customizes what your mod is and and how it starts and builds!
 
 # This controls what your mod is called.
-define config.name = "DDLC Mod Template – Python 3 Edition"
+define config.name = "Doki Doki Literature Club - Afterword"
 
 # This controls whether you want your mod name to show in the main menu.
 # If your mod name is big, it is suggested to turn this off.
 define gui.show_name = True
 
 # This controls the version number of your mod.
-define config.version = "4.2.3–Py3"
+define config.version = "4.2.3-Py2"
 
 # This adds information about your mod in the About screen.
 # DDLC does not have a 'About' screen so you can leave this blank.
@@ -24,7 +25,7 @@ define gui.about = _("")
 # Note:
 #   The build name is ASCII only so no numbers, spaces, or semicolons.
 #   Example: Doki Doki Yuri Time to DokiDokiYuriTime
-define build.name = "DDLCModTemplateTwo-Py3"
+define build.name = "DokiDokiLiteratureClubAfterword"
 
 # This configures whether your mod has sound effects.
 define config.has_sound = True
@@ -81,7 +82,7 @@ default preferences.sfx_volume = 0.75
 #   Windows: %AppData%/RenPy/
 #   macOS: $HOME/Library/RenPy/ (Un-hide the Library Folder)
 #   Linux: $HOME/.renpy/
-define config.save_directory = "DDLCModTemplateTwo-Py3"
+define config.save_directory = "Doki Doki Literature Club Afterword"
 
 # This controls the window logo of your mod.
 define config.window_icon = "gui/window_icon.png"
@@ -151,8 +152,11 @@ init python:
 
     # These variables declare the packages to build your mod that is Team Salvato
     # IPG compliant. Do not mess with these variables whatsoever.
-    build.package("Renpy8-DDLCMod", 'zip', 'windows linux mac renpy mod',
-        description="Ren'Py 8 DDLC Compliant Mod")
+    if renpy.version_tuple == (6, 99, 12, 4, 2187):
+        build.package(build.directory_name + "Mod", 'zip', 'mod', description="Ren'Py 6 DDLC Compliant Mod")
+    else:
+        build.package(build.directory_name + "Renpy7Mod", 'zip', 'windows linux mac renpy mod',
+        description="Ren'Py 7 DDLC Compliant Mod")
 
     # These variables declare the archives that will be made to your packaged mod.
     # To add another archive, make a build.archive variable like in this example:

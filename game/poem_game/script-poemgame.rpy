@@ -87,7 +87,7 @@ init python:
                 
             self.charPointTotal = 0
             self.appeal = 0
-            super().__init__()
+            super(Chibi, self).__init__()
             chibis[name] = self
 
         def reset(self):
@@ -209,7 +209,7 @@ init python:
         y_poemappeal[chapter] = chibi_y.calculate_appeal()
 
         # Poem winner always has appeal 1 (loves poem)
-        exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1")
+        exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1") in globals()
 
 screen poem_test(words, progress, poemgame_glitch):
     default numWords = 20
@@ -297,18 +297,22 @@ label poem(transition=True):
     else:
         scene bg notebook
     
-    if persistent.playthrough == 3: 
-        show m_sticker at sticker_mid #Just Monika.
+    if persistent.playthrough == 9: 
+        show m_sticker at sticker_mid 
+        #Just Monika.
     else:
-        if persistent.playthrough == 0:
-            show s_sticker at sticker_left #Only show Sayori's sticker in Act 1.
-        show n_sticker at sticker_mid #Natsuki's sticker
-        if persistent.playthrough == 2 and chapter == 2:
-            show y_sticker_cut at sticker_right #Replace Yuri's sticker with the "cut arms" sticker..
+        show s_sticker at sticker_left
+        show n_sticker at sticker_mid 
+        #Natsuki's sticker
+        if persistent.playthrough == 9 and chapter == 2:
+            show y_sticker_cut at sticker_right 
+            #Replace Yuri's sticker with the "cut arms" sticker..
         else:
-            show y_sticker at sticker_right #Yuri's sticker
-        if persistent.playthrough == 2 and chapter == 2:
-            show m_sticker at sticker_m_glitch #Monika's sticker
+            show y_sticker at sticker_right 
+            #Yuri's sticker
+        if persistent.playthrough == 9 and chapter == 2:
+            show m_sticker at sticker_m_glitch 
+            #Monika's sticker
         
     if transition:
         with dissolve_scene_full
@@ -488,6 +492,24 @@ image y_sticker glitch:
         parallel:
             function chibi_y.randomMoveTime
         repeat
+
+image g_sticker:
+    "mod_asssets/Gwynn Sprites/overall/g_sticker.png"
+    xoffset chibi_s.charOffset xzoom chibi_s.charZoom
+    block:
+        function chibi_s.randomPauseTime
+        parallel:
+            sticker_move_n
+        parallel:
+            function chibi_s.randomMoveTime
+        repeat
+
+image g_sticker hop:
+    "mod_assets/Gwynn Sprites/overall/g_sticker_2.png"
+    xoffset chibi_m.charOffset xzoom chibi_m.charZoom
+    sticker_hop
+    xoffset 0 xzoom 1
+    "m_sticker"
 
 transform sticker_left:
     xcenter 100 yalign 0.9 subpixel True

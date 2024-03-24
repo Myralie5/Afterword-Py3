@@ -61,7 +61,7 @@ init python:
         # These commented variables sets all keybinds from Rollback to History.
         # config.keymap["rollback"] = []
         # config.keymap["history"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK', 'mousedown_4' ]
-
+    
     # These variable declarations adjusts the mapping for certain actions in-game.
     config.keymap['game_menu'].remove('mouseup_3')
     config.keymap['hide_windows'].append('mouseup_3')
@@ -107,14 +107,14 @@ init python:
                 except: open(config.basedir + "/characters/" + x + ".chr", "wb").write(renpy.file("chrs/" + x + ".chr").read())
 
     def restore_all_characters():
-        if persistent.playthrough == 0:
-            restore_character(["monika", "sayori", "natsuki", "yuri"])
-        elif persistent.playthrough == 1 or persistent.playthrough == 2:
-            restore_character(["monika", "natsuki", "yuri"])
-        elif persistent.playthrough == 3:
-            restore_character(["monika"])
-        else:
+        if persistent.monika_in == False:
             restore_character(["sayori", "natsuki", "yuri"])
+        elif persistent.monika_in == True and persistent.newchars == False:
+            restore_character(["monika", "natsuki", "yuri", "sayori"])
+        elif persistent.newchars == True:
+            restore_character(["monika", "natsuki", "yuri", "sayori", "kotonoha", "nastya", "gwynn", "libitina"])
+        else:
+            pass
     
     # This function is obsolete as all characters now restores only
     # relevant characters to the characters folder.
@@ -326,7 +326,7 @@ image glitch_color2:
 # This is where the characters bodies and faces are defined in the mod.
 # They are defined by a left half, a right half and their head.
 # To define a new image, declare a new image statement like in this example:
-#     image sayori 1ca = Composite((960, 960), (0, 0), "mod_assets/sayori/1cl.png", (0, 0), "mod_assets/sayori/1cr.png", (0, 0), "sayori/a.png")
+#     image sayori 1ca = im.Composite((960, 960), (0, 0), "mod_assets/sayori/1cl.png", (0, 0), "mod_assets/sayori/1cr.png", (0, 0), "sayori/a.png")
 
 # Sayori's Character Definitions
 image sayori 1 = im.Composite((960, 960), (0, 0), "sayori/1l.png", (0, 0), "sayori/1r.png", (0, 0), "sayori/a.png")
@@ -885,7 +885,7 @@ image natsuki 5 = im.Composite((960, 960), (18, 22), "natsuki/1t.png", (0, 0), "
 
 # This image shows the realistic mouth on Natsuki on a random playthrough
 # of Act 2.
-image natsuki mouth = im.Composite((960, 960), (0, 0), "natsuki/0.png", (390, 340), "n_rects_mouth", (480, 334), "n_rects_mouth")
+#image natsuki mouth = LiveComposite((960, 960), (0, 0), "natsuki/0.png", (390, 340), "n_rects_mouth", (480, 334), "n_rects_mouth")
 
 # This image shows black rectangles on Natsuki on a random playthrough
 # of Act 2.
@@ -1195,7 +1195,7 @@ image yuri stab_2 = "yuri/stab/2.png"
 image yuri stab_3 = "yuri/stab/3.png"
 image yuri stab_4 = "yuri/stab/4.png"
 image yuri stab_5 = "yuri/stab/5.png"
-image yuri stab_6 = im.Composite((960,960), (0, 0), "yuri/stab/6-mask.png", (0, 0), "yuri stab_6_eyes", (0, 0), "yuri/stab/6.png")
+image yuri stab_6 = LiveComposite((960,960), (0, 0), "yuri/stab/6-mask.png", (0, 0), "yuri stab_6_eyes", (0, 0), "yuri/stab/6.png")
 
 # This image transform animates Yuri's eyes on her 6th stabbing in Act 2.
 image yuri stab_6_eyes:
@@ -1226,12 +1226,12 @@ image yuri stab_6_eyes:
 
 # These images shows Yuri with a offcenter right eye moving slowing away
 # from her face.
-image yuri oneeye = im.Composite((960, 960), (0, 0), "yuri/1l.png", (0, 0), "yuri/1r.png", (0, 0), "yuri/oneeye.png", (0, 0), "yuri oneeye2")
-image yuri oneeye2:
-    "yuri/oneeye2.png"
-    subpixel True
-    pause 5.0
-    linear 60 xoffset -50 yoffset 20
+#image yuri oneeye = LiveComposite((960, 960), (0, 0), "yuri/1l.png", (0, 0), "yuri/1r.png", (0, 0), "yuri/oneeye.png", (0, 0), "yuri oneeye2")
+#image yuri oneeye2:
+#    "yuri/oneeye2.png"
+#    subpixel True
+#    pause 5.0
+#    linear 60 xoffset -50 yoffset 20
 
 # These images show a glitched Yuri during Act 2.
 image yuri glitch:
@@ -1258,15 +1258,15 @@ image yuri glitch2:
     "yuri 1"
 
 # These image declarations show Yuri's moving eyes in Act 2.
-image yuri eyes = im.Composite((1280, 720), (0, 0), "yuri/eyes1.png", (0, 0), "yuripupils")
+#image yuri eyes = LiveComposite((1280, 720), (0, 0), "yuri/eyes1.png", (0, 0), "yuripupils")
 
 # This image shows the base of Yuri's sprite as her eyes move.
-image yuri eyes_base = "yuri/eyes1.png"
+#image yuri eyes_base = "yuri/eyes1.png"
 
 # This image shows Yuri's realistic moving eyes during Act 2.
-image yuripupils:
-    "yuri/eyes2.png"
-    yuripupils_move
+#image yuripupils:
+#    "yuri/eyes2.png"
+#    yuripupils_move
 
 image yuri cuts = "yuri/cuts.png"
 
@@ -1427,6 +1427,82 @@ image monika g2:
             pause 0.2
     repeat
 
+##Gwynn defs - keep hashed till you have the actual assets (1a-4f)
+
+##default 1a-1m
+#image gwynn 1 = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1a.png")
+#image gwynn 1a = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1a.png")
+#image gwynn 1b = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1b.png")
+#image gwynn 1c = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1c.png")
+#image gwynn 1d = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1d.png")
+#image gwynn 1e = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1e.png")
+#image gwynn 1f = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1f.png")
+#image gwynn 1g = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1g.png")
+#image gwynn 1h = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1h.png")
+#image gwynn 1i = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1i.png")
+#image gwynn 1j = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1j.png")
+#image gwynn 1k = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1k.png")
+#image gwynn 1l = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1l.png")
+#image gwynn 1m = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1m.png")
+
+##blush sprites 1ba-1bg
+#image gwynn 1ba = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+#image gwynn 1bb = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bb.png")
+#image gwynn 1bc = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bc.png")
+#image gwynn 1bd = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+#image gwynn 1be = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bb.png")
+#image gwynn 1bf = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bc.png")
+#image gwynn 1bg = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+
+##yandere 1ya-1ybc
+#image gwynn 1ya = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bb.png")
+#image gwynn 1yb = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bc.png")
+#image gwynn 1yc = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+#image gwynn 1yba = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bb.png")
+#image gwynn 1ybb = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bc.png")
+#image gwynn 1ybc = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+
+##pointing 2a-2m
+#image gwynn 2 = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2a.png")
+#image gwynn 2a = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2a.png")
+#image gwynn 2b = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2b.png")
+#image gwynn 2c = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2c.png")
+#image gwynn 2d = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2d.png")
+#image gwynn 2e = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2e.png")
+#image gwynn 2f = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2f.png")
+#image gwynn 2g = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2g.png")
+#image gwynn 2h = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2h.png")
+#image gwynn 2i = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2i.png")
+#image gwynn 2j = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2j.png")
+#image gwynn 2k = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2k.png")
+#image gwynn 2l = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2l.png")
+#image gwynn 2m = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/2m.png")
+
+##blush sprites 2ba-2bg
+#image gwynn 2ba = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+#image gwynn 2bb = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bb.png")
+#image gwynn 2bc = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bc.png")
+#image gwynn 2bd = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+#image gwynn 2be = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bb.png")
+#image gwynn 2bf = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1bc.png")
+#image gwynn 2bg = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/1ba.png")
+
+##knife 3a-4f
+#image gwynn 3 = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3a.png")
+#image gwynn 3a = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3a.png")
+#image gwynn 3b = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3b.png")
+#image gwynn 3c = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3c.png")
+#image gwynn 3d = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3d.png")
+#image gwynn 3e = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3e.png")
+#image gwynn 3f = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/3f.png")
+#image gwynn 4 = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4a.png")
+#image gwynn 4a = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4a.png")
+#image gwynn 4b = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4b.png")
+#image gwynn 4c = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4c.png")
+#image gwynn 4d = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4d.png")
+#image gwynn 4e = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4e.png")
+#image gwynn 4f = im.Composite((960, 960), (0, 0), "mod_assets/gwynn/4f.png")
+
 ## Character Variables
 # This is where the characters are declared in the mod.
 # To define a new character with assets, declare a character variable like in this example:
@@ -1435,12 +1511,14 @@ image monika g2:
 #   define en = Character('Eileen & Nat', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 
 define narrator = Character(ctc="ctc", ctc_position="fixed")
-define mc = DynamicCharacter('player', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
+define mc = DynamicCharacter('player', image='player', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 define s = DynamicCharacter('s_name', image='sayori', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 define m = DynamicCharacter('m_name', image='monika', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 define n = DynamicCharacter('n_name', image='natsuki', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 define y = DynamicCharacter('y_name', image='yuri', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 define ny = Character('Nat & Yuri', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
+define d = DynamicCharacter('d_name', image='gwynn', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
+define l = DynamicCharacter('l_name', image='libitina', what_prefix='"', what_suffix='"', ctc="ctc", ctc_position="fixed")
 
 # This variable determines whether to allow the player to dismiss pauses.
 # By default this is set by config.developer which is normally set to false
@@ -1478,6 +1556,7 @@ default persistent.lets_play = False
 #   default cookies = False
 # To make sure a variable is set to a given condition use 'define' rather than 'default'.
 
+default persistent.monika_in = False
 default persistent.playername = ""
 default player = persistent.playername
 default persistent.playthrough = 0
@@ -1496,7 +1575,10 @@ default persistent.first_load = None
 default persistent.first_poem = None
 default persistent.seen_colors_poem = None
 default persistent.monika_back = None
+default persistent.newchars = False
 
+default y_firstpoem = False
+default n_firstpoem = False
 default in_sayori_kill = None
 default in_yuri_kill = None
 default anticheat = 0
@@ -1506,6 +1588,7 @@ default basedir = config.basedir
 default chapter = 0
 default currentpos = 0
 default faint_effect = None
+default unfinished = False
 
 # Default Name Variables
 # To define a default name make a character name variable like in this example:
@@ -1515,6 +1598,11 @@ default s_name = "Sayori"
 default m_name = "Monika"
 default n_name = "Natsuki"
 default y_name = "Yuri"
+default d_name = "Gwynn"
+default a_name = "Nastya"
+default l_name = "Libitina"
+default k_name = "Kotonoha"
+
 
 # Poem Variables
 # This section records how much each character likes your poem in-game.
@@ -1541,6 +1629,12 @@ default m_readpoem = False
 
 # This variable keeps track on how many people have read your poem.
 default poemsread = 0
+
+# These variables store the appeal a character has to your poem
+default n_appeal = 0
+default s_appeal = 0
+default y_appeal = 0
+default m_appeal = 0
 
 # These variables control if we have seen Natsuki's or Yuri's exclusive scenes
 default n_exclusivewatched = False
