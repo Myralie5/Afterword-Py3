@@ -182,10 +182,10 @@ layeredimage kotonoha toward:
             "mod_assets/MPT/kotonoha/clothes/bikini/rbehind.png"
 
         attribute rchip if_any(["uniform"]):
-            "mod_assets/MPT/kotonoha/clothes/uniform/rchip.png"
+            "mod_assets/MPT/kotonoha/clothes/uniform/rhip.png"
         attribute rchip if_any(["casual"]):
-            "mod_assets/MPT/kotonoha/clothes/casual/rchip.png"
+            "mod_assets/MPT/kotonoha/clothes/casual/rhip.png"
         attribute rchip if_any(["bikini"]):
-            "mod_assets/MPT/kotonoha/clothes/bikini/rchip.png"
+            "mod_assets/MPT/kotonoha/clothes/bikini/rhip.png"
 
     

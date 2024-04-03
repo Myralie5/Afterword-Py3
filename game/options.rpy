@@ -82,7 +82,7 @@ default preferences.sfx_volume = 0.75
 #   Windows: %AppData%/RenPy/
 #   macOS: $HOME/Library/RenPy/ (Un-hide the Library Folder)
 #   Linux: $HOME/.renpy/
-define config.save_directory = "Doki Doki Literature Club Afterword"
+define config.save_directory = "DDLC Afterword"
 
 # This controls the window logo of your mod.
 define config.window_icon = "gui/window_icon.png"

@@ -8,7 +8,7 @@
 #   -poem: poem minigame
 
 #Notable variables (use as '$ <the variable>= <value>' to set, 'if <the variable> == <value>' to check)
-
+    # persistent.playthrough: controls the playthrough number the player is on i.e (Act 1, 2, 3, 4)
 
 label start:
 
@@ -17,10 +17,7 @@ label start:
     #   $ persistent.anticheat = renpy.random.randint(X, Y) 
     #   X - The minimum number | Y - The maximum number
     $ anticheat = persistent.anticheat
-
-    # This variable sets the chapter number to 0 to use in the mod.
-    $ chapter = 0
-
+    
     # This variable controls whether the player can dismiss a pause in-game.
     $ _dismiss_pause = config.developer
 
@@ -34,8 +31,8 @@ label start:
     $ n_name = "Girl 1"
     $ y_name = "Girl 2"
     $ d_name = "Girl's Voice"
-    $ n_name = "Girl 1"
-    $ k_name = "Girl 2"
+    $ a_name = "Girl 2"
+    $ k_name = "Girl 1"
     $ l_name = "Girl 3"
 
     # This variable controls whether the quick menu in the textbox is enabled.
@@ -55,7 +52,6 @@ label start:
 
     ## The Main Part of the Script
     # This is where your script code is called!
-    # 'persistent.playthrough' controls the playthrough number the player is on i.e (Act 1, 2, 3, 4)
 
     ## Example on calling scripts from DDLC.
     if persistent.playthrough == 0:

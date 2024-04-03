@@ -13,10 +13,10 @@ label messy:
     scene black
     "beeeeeeeeeeeep"
     show bg residential_day
-    show sayori turned dist at f21 
+    show sayori turned dist at t21 
     s om "Somebody kill me."
     show sayori vsur at t21
-    show gwynn forward knife happ ce om at f22
+    show gwynn forward knife happ ce om at t22
     d "Okay!!!"
     scene black
     "beeeeeeeeeeeep"

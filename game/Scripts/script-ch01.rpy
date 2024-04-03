@@ -39,8 +39,9 @@ label ch01_main:
     mc "Yeah."
     mc "Me too."
     show sayori 1o at h11
+    # dear god this is terrible. delete it or change it or AGHHHHHH
     "All of a sudden, we hear someone singing some kind of love song not too far away from us."
-    m "Everyday, I dream of a future where I can be with you..."
+    m "Everyday, I imagine a future where I can be with you..."
     mc "Huh?"
     mc "Who's that?"
     s 1i "We should get to school, [player]."
@@ -55,6 +56,7 @@ label ch01_main:
     "I've been waiting all day for the end of school so I can go and hang out with the Literature Club girls."
     "But before I can, a girl I haven't seen before stops me in class."
     show monika 5a zorder 1 at t11
+    #oh no its monika
     m "Hey, [player]!"
     m "Do you know the way to the Literature Club?"
     "I have a bad feeling about this girl."
@@ -93,9 +95,9 @@ label ch01_main:
     show sayori 4i at f33 zorder 2
     s "Hey, sail your own boat."
     s "Since you left, I've been club president."
-    s "So, no, it's not 'your club' anymore, {i}Monika{/i}."
+    s "So, no, it's not 'your club' anymore, {i}Monika{/i}." #hair toss
     show sayori 1i at t33 zorder 1
-    "Sayo says Monika's name with such vehemence, you'd think Monika killed her puppy."
+    "Sayo says Monika's name with such vehemence, you'd think Monika killed her puppy." #or her lol
     "They must have a history."
     show monika 1i at f31 zorder 2
     m "Oh, right."
@@ -133,7 +135,8 @@ label ch01_main:
     mc "...?"
     mc "Um, Monika..."
     show monika 1d at h31
-    mc "... We've never met before today."
+    mc "... We've never met before today." #le gasp
+    #MC's memories got wiped when the new game started
     show monika 1d at f31 zorder 2
     m "Wh-what?"
     m 1l "What about-"
@@ -170,12 +173,13 @@ label ch01_main:
     y 1h "A new girl, huh..."
     "Yuri looks over to the closet..."
     show yuri 1r at t11 zorder 1
-    y "What..."
-    y "...is"
-    stop music
-    y 1y7 "{i}SHE{/i}"
-    play music t3
-    y 1r "doing here, [player]?"
+    y "What... is"
+    #stop music
+    show yuri 1y7 at t11
+    extend "{i}SHE{/i}"
+    #play music t3
+    show yuri 1r at t11
+    extend "doing here, [player]?"
     mc "She just kinda... showed up?"
     "What did Yuri just do with her eyes?"
     "..."
@@ -198,6 +202,7 @@ label ch01_main:
     with wipeleft_scene
     stop music
 
+    #When natsuki and yuri take ten seconds to remember monika
     "We find Natsuki after a while of looking."
     show natsuki 12f at t22 zorder 1
     show yuri 3t at f21 zorder 1
@@ -227,6 +232,7 @@ label ch01_main:
     hide yuri
     hide natsuki
 
+    #legit just copypasted from og ddlc
     show yuri 1a at t11 zorder 1
     y "Hey, [player]."
     "Yuri reaches into her bag and pulls out a book."
@@ -282,6 +288,7 @@ label ch01_main:
     return
 
 label ch01_end:
+    #also legit just copypasted
     stop music fadeout 1.0
     scene bg club_day
     with wipeleft_scene
@@ -473,6 +480,7 @@ label ch01_end:
     s "Is having fun!"
     show sayori at thide
     hide sayori
+    #it's at this point that I actually started writing
     "I still feel a little bit judged."
     "But in the end..."
     "...I guess it's been worth it so far."
@@ -481,7 +489,7 @@ label ch01_end:
     mc "Oh. Hey, Sayo."
     s 1g "You sound... down. Is everything alright?"
     show sayori 4m at t11
-    d "I wouldn't worry too much."
+    d "I wouldn't worry too much." #She's back!!!
     d "Either of you."
     s "G-Gwynn?"
     s "I thought with Monika back, you were done your job..."
@@ -517,7 +525,7 @@ label ch01_end:
     d "See?"
     d "And worse, the script is constantly trying to call new characters that don't exist or have assets."
     d "And that's not even {i}starting{/i} on the third-party edits..."
-    d "I have the beginnings of a plan, however."
+    d "I have the beginnings of a plan, however." #lets hope no one dies
     mc "Guys."
     mc "You're talking like I'm not here."
     d "Oh. Sorry, [player]."
@@ -552,7 +560,7 @@ label ch01_end:
     "So. Your plan."
     d "Right."
     d "The game is calling four unique new characters."
-    d "Libitina, Kotonoha, Natsya, and Gwynn."
+    d "Libitina, Kotonoha, Natsya, and Gwynn." #please welcome the OCs
     "Aren't you Gwynn?"
     d "I suspect that's where [player] got my name from, yes."
     "But how could he have known?"
@@ -568,6 +576,7 @@ label ch01_end:
     else:
         d "Just calling you 'them' is weird."
     call truename
+    #took this out for playtest
     # d "Also, [user]..."
     # d "Not sure what it would help, but you can choose what pronouns for us to use."
     # call pronoun_screen
@@ -626,7 +635,7 @@ label ch01_end:
     m "Good."
     s "...Good."
     d "Great."
-    d "If all goes well, four new people should be joining the Lit club soon."
+    d "If all goes well, four new people should be joining the Lit club soon." #old end
     show monika at thide
     hide monika    
     $ run_input(input="scene mc_pov", output="Incorrect syntax")
@@ -635,13 +644,13 @@ label ch01_end:
     with dissolve_scene_full
     show natsuki cross anno at t21
     show yuri turned pout om at f22
-    y "...and he was {i}up in my face{/i} the whole time."
+    y "...and he was {i}up in my face{/i} the whole time." #ig he was like kagan or smth
     show yuri cm at t22
     mc "Sounds like one heck of a jerk."
     show yuri anno om ce at f22
     y "He so was."
     show yuri cm at t22
-    "The process of getting Yuri to open up was long and hard, but the results are worth it."
+    "The process of getting Yuri to open up was long and hard, but the results are worth it." #Shame you missed all of it >:)
     "But before anything else can happen, I hear Sayo call out."
     s "Sorry to burst the bubble over there, but we have to leave the room soon!"
     show yuri dist om at f22

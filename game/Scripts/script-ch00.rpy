@@ -5,10 +5,12 @@ label ch0_main:
     scene bg corridor
     with dissolve_scene_full
 
+    #just for my own convenience; remove before release
     menu:
         "Are you using ExPoser Previewer?"
         "Yes":
             while True:
+                window hide
                 " "
         "No":
             pass
@@ -17,7 +19,7 @@ label ch0_main:
     $ s_name = "Sayori"
     "...What?"
     "Why am I here?"
-    d "I'm sorry I had to put you in this situation, [player]."
+    d "I'm sorry I had to put you in this situation, [player]." #Gwynn is 'd' bcus diagnostic
     d "I'd rather not, but I couldn't have just started the game like this."
     "Who is that?"
     "I turn around, but there's no one around me."
@@ -27,7 +29,7 @@ label ch0_main:
     mc "Where are you?!?"
     d "In your character algorithm."
     mc "Wh-what do you mean?"
-    mc "I'm not some... 'algorithm.'"
+    mc "I'm not some... 'algorithm.'" #MC(poor baby) doesn't know
     d "Oh... you don't know, do you? My my."
     mc "Don't know what!?"
     d "I am not permitted to tell you."
@@ -37,7 +39,7 @@ label ch0_main:
     d "After that, I'll leave quietly."
     mc "O-okay."
     mc "Well, what's your name, then?"
-    d "I am listed under selfdiagnostic.rpy."
+    d "I am listed under selfdiagnostic.chr."
     mc "That's a mouthful."
     mc "Why don't I give you another name?"
     d "...Alright."
@@ -60,7 +62,7 @@ label ch0_main:
     "This must be the product of her efforts."
     s "Why are you here?"
     show sayori cm zorder 1 at t11
-    mc "I... um... got lost and wound up here."
+    mc "I... um... got lost and wound up here." #Mc has no idea how he got here lol
     show natsuki turned lhip anno om zorder 2 at f31
     "Another girl comes up to me."
     n "Sayori, who's this?"
@@ -101,7 +103,7 @@ label ch0_main:
     mc "By all means, go ahead, Yuri."
     show yuri rup neut om oe zorder 2 at f33
     y "I read a book recently called Portrait of Markov."
-    y mg ce "It's somewhat dark, being classified as a quasi-horror novel, but it's quite interesting."
+    y mg ce "It's somewhat dark, being classified as a quasi-horror novel, but it's quite interesting." #It's act 1 PoM
     $ yref()
     show yuri rup zorder 1 at t33
     mc "What about you, Natsuki?"
@@ -118,7 +120,7 @@ label ch0_main:
     stop music
     "Sayori instantly covers her mouth."
     "Natsuki and Yuri wince, and then seem to wonder why they did."
-    "I get this strange sense of deja vu, like someone else said that once... someone I didn't like."
+    "I get this strange sense of deja vu, like someone else said that once... someone I didn't like." #cough cough monika cough cough
     d "Oh my. First time and she already slipped up."
     show sayori flus ml awkw zorder 2 at f32
     s "I-I mean, alright everyone!"
@@ -215,7 +217,7 @@ label ch0_main:
     mc "Hm."
     mc "Actually, Sayo, I was wondering..."
     mc "What did Gwynn mean by 'the game'?"
-    mc "Even when she was talking to me, she called me an 'algorithm'."
+    mc "Even when she was talking to me, she called me an 'algorithm'." #MC's braincell total is 1
     show sayori 1l zorder 2 at t11
     s "Um... well, that's a long story."
     show sayori 1n zorder 1 at h11
@@ -234,7 +236,7 @@ label ch0_main:
     d "Yeah."
     d "[player] gave me the filename 'Gwynn'."
     s "So... you didn't have one before?"
-    d "Technically, I was selfdiagnostic.rpy."
+    d "Technically, I was selfdiagnostic.chr."
     d "But that's a mouthful, so I chose to let [player] give me a new filename."
     s "Really?"
     s "Huh."
@@ -262,3 +264,4 @@ label ch0_main:
     "Huh."
     "Guess I'll just go... write poetry now."
     $ persistent.monika_in = True
+    return
