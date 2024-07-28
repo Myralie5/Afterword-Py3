@@ -31,9 +31,7 @@ label start:
     $ n_name = "Girl 1"
     $ y_name = "Girl 2"
     $ d_name = "Girl's Voice"
-    $ a_name = "Girl 2"
-    $ k_name = "Girl 1"
-    $ l_name = "Girl 3"
+    $ l_name = "???"
 
     # This variable controls whether the quick menu in the textbox is enabled.
     $ quick_menu = True
@@ -71,7 +69,7 @@ label start:
 
         $ writefile("TmV3IEZpbGU=")
 
-        $ restore_character("nastya","kotonoha","libitina")
+        $ restore_character("libitina")
 
         $ newchars = True
 

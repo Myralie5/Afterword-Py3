@@ -1,4 +1,3 @@
-
 label ch0_main:
     $ persistent.monika_in = False
     stop music fadeout 2.0

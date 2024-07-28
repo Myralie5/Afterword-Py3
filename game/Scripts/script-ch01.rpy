@@ -523,7 +523,7 @@ label ch01_end:
     $ run_input(input="$ showfile = script.rpy ln 2003-2042", output="Variable set.")
     $ run_input(input="show str(showfile)", output="[gtext]\n[gtext]")
     d "See?"
-    d "And worse, the script is constantly trying to call new characters that don't exist or have assets."
+    d "And worse, the script is constantly trying to call a personality that doesn't exist or have assets."
     d "And that's not even {i}starting{/i} on the third-party edits..."
     d "I have the beginnings of a plan, however." #lets hope no one dies
     mc "Guys."
@@ -559,13 +559,13 @@ label ch01_end:
     "I guess..."
     "So. Your plan."
     d "Right."
-    d "The game is calling four unique new characters."
-    d "Libitina, Kotonoha, Natsya, and Gwynn." #please welcome the OCs
-    "Aren't you Gwynn?"
-    d "I suspect that's where [player] got my name from, yes."
-    "But how could he have known?"
+    d "The game is calling a personality titled 'libitina.chr'."
+    d "I also found my own name in the files more than once."
+    "Why would that be?"
+    d "I have no idea, but it's likely that it's where my name came from rather "
+    "But how could [player] have known?"
     d "He likely didn't."
-    d "The game didn't give him any imagination whatsoever, so his sourcecode simply drew on a name the game was calling, believing it was a real character."
+    d "The game didn't give him any imagination whatsoever, so his sourcecode simply drew on a name the game contained."
     "Ah."
     d "That reminds me..."
     if not persistent.lets_play:
@@ -606,9 +606,9 @@ label ch01_end:
     d "We're going to need your help."
     m om "What for?"
     d "The game is glitching, as I'm sure you're aware."
-    d "The script is calling characters that don't exist."
-    d "One of them shares my name."
-    d "I intend to place a copy of myself into scripts, and then overwrite my current self with the character scripts is calling."
+    d "The script is calling a character that doesn't exist."
+    d "My name is in the script multiple times."
+    d "I intend to place a copy of myself into scripts, and then overwrite my current self with whatever it is scripts is calling."
     s "What?!?"
     s "That's super dangerous!"
     m anno "I think she's {i}aware of that,{/i} Sayori."
@@ -618,7 +618,7 @@ label ch01_end:
     d "It's alright."
     d "I expected such a reaction."
     d "As I was saying..."
-    d "I found art assets online to place the characters in."
+    d "I found art assets online to place the character in."
     d "For me though..."
     d "I...er...drew my own."
     d "They, uh, are... not of the same quality as the others."
@@ -627,15 +627,18 @@ label ch01_end:
     m oe ldown "I get that."
     $ mref()
     d "Thanks."
-    d "I suspect the retrieval of these characters will shed some light on the glitches."
-    d "Meanwhile, I'll run damage control within scripts itself."
+    d "I suspect the retrieval of these objects will shed some light on the glitches."
+    d "The intention is to leave the 'new me' with some of my programs, for a certain level of damage control."
+    d "It might take a while for the new version to show up, since the game's already handling so much input."
+    d "I trust you can handle it before the subprocesses kick in?"
+    d "Anyways, the 'real me' will run damage control within scripts itself."
     d "And, if neccessary... interference."
     d "I'll see what I can do to free you two from interference on my side."
     d "Good?"
     m "Good."
     s "...Good."
     d "Great."
-    d "If all goes well, four new people should be joining the Lit club soon." #old end
+    d "If all goes well, two new people should be joining the Lit club soon." #old end
     show monika at thide
     hide monika    
     $ run_input(input="scene mc_pov", output="Incorrect syntax")
