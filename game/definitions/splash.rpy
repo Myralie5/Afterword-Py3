@@ -395,7 +395,7 @@ label splashscreen:
             "Yes":
                 "Cool."
 
-        "Your original playthrough of DDLC has no particular effect here, unless you choose it to, e.g. trying to recreate your original coices, et cetera."
+        "Your original playthrough of DDLC has no particular effect here, unless you choose it to, e.g. trying to recreate your original choices, et cetera."
         "One last question..."
         
         menu:
