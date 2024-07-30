@@ -28,7 +28,8 @@ init python:
     # to show to the player on startup.
     splash_messages = [
         "Please support Doki Doki Literature Club.",
-        "Monika is watching you code."
+        "There's something wrong here.",
+        "There's nothing left."
     ]
 
     ### New in 3.0.0
@@ -61,7 +62,6 @@ image splash_warning = ParameterizedText(style="splash_text", xalign=0.5, yalign
 
 # This image shows the DDLC logo in the normal DDLC position.
 image menu_logo:
-<<<<<<< HEAD
     choice:
         "mod_assets/Gwynn Sprites/overall/Logo.png"
     choice:
@@ -70,9 +70,6 @@ image menu_logo:
         "mod_assets/Gwynn Sprites/overall/Logo.png"
     choice:
         "mod_assets/Gwynn Sprites/overall/Logo2.png"
-=======
-    "mod_assets/DDLCModTemplateLogo.png"
->>>>>>> 7794aa01975c3d768f8f5b6d268fad262943458d
     # im.Composite((512, 512), (0, 0), recolorize("mod_assets/logo_bg.png"), (0, 0), "mod_assets/logo_fg.png")
     subpixel True
     xcenter 240
@@ -547,7 +544,7 @@ label splashscreen:
     show intro with Dissolve(0.5, alpha=True)
     $ pause(2.5)
     hide intro with Dissolve(0.5, alpha=True)
-    if persistent.playthrough == 2 and renpy.random.randint(0, 3) == 0:
+    if renpy.random.randint(0, 3) == 0:
         $ splash_message = renpy.random.choice(splash_messages)
     show splash_warning "[splash_message]" with Dissolve(0.5, alpha=True)
     $ pause(1.5)
