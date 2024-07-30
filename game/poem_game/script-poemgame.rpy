@@ -87,7 +87,7 @@ init python:
                 
             self.charPointTotal = 0
             self.appeal = 0
-            super(Chibi, self).__init__()
+            super().__init__()
             chibis[name] = self
 
         def reset(self):
@@ -209,7 +209,7 @@ init python:
         y_poemappeal[chapter] = chibi_y.calculate_appeal()
 
         # Poem winner always has appeal 1 (loves poem)
-        exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1") in globals()
+        exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1")
 
 screen poem_test(words, progress, poemgame_glitch):
     default numWords = 20
@@ -306,7 +306,7 @@ label poem(transition=True):
         #Natsuki's sticker
         if persistent.playthrough == 9 and chapter == 2:
             show y_sticker_cut at sticker_right 
-            #Replace Yuri's sticker with the "cut arms" sticker..
+            #Replace Yuri's sticker with the "cut arms" sticker...
         else:
             show y_sticker at sticker_right 
             #Yuri's sticker
@@ -495,21 +495,21 @@ image y_sticker glitch:
 
 image g_sticker:
     "mod_asssets/Gwynn Sprites/overall/g_sticker.png"
-    xoffset chibi_s.charOffset xzoom chibi_s.charZoom
+    xoffset chibi_g.charOffset xzoom chibi_g.charZoom
     block:
-        function chibi_s.randomPauseTime
+        function chibi_g.randomPauseTime
         parallel:
             sticker_move_n
         parallel:
-            function chibi_s.randomMoveTime
+            function chibi_g.randomMoveTime
         repeat
 
 image g_sticker hop:
     "mod_assets/Gwynn Sprites/overall/g_sticker_2.png"
-    xoffset chibi_m.charOffset xzoom chibi_m.charZoom
+    xoffset chibi_g.charOffset xzoom chibi_g.charZoom
     sticker_hop
     xoffset 0 xzoom 1
-    "m_sticker"
+    "g_sticker"
 
 transform sticker_left:
     xcenter 100 yalign 0.9 subpixel True
