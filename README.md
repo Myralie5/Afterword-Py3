@@ -1,7 +1,7 @@
 # Welcome to DDLC: Afterword!
 
 <p align="center">
-  <img src="./game/mod_assets/Gwynn Sprites/overall/Logo2.png" width=250px/>
+  <img src=".github/IMAGES/Logos/Logo2.png" width=250px/>
 </p>
 
 <p align="center">
