@@ -1,7 +1,7 @@
 # Welcome to DDLC: Afterword!
 
 <p align="center">
-  <img src=".github/IMAGES/Logos/Logo2.png" width=250px/>
+  <img src=".github/IMAGES/Logos/Logo2.PNG" width=250px/>
 </p>
 
 <p align="center">
