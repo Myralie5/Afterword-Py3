@@ -9,11 +9,6 @@ init offset = -1
 
 # Thanks RenpyTom! Borrowed from the Ren'Py Launcher
 init python:
-    # Ren'Py 6 doesn't have translate_string defined by default so
-    # import it and set for Ren'Py 7 code workings.
-    from renpy.translation import translate_string
-    renpy.translate_string = translate_string
-
     def scan_translations():
 
         languages = renpy.known_languages()
@@ -22,17 +17,11 @@ init python:
             return None
 
         rv = [(i, renpy.translate_string("{#language name and font}", i)) for i in languages ]
-        
-        # We will use a imported Ren'Py 7 function for Ren'Py 6
-        if renpy.version_tuple == (6, 99, 12, 4, 2187):
-            rv.sort(key=lambda a : filter_text_tags(a[1], allow=[]).lower())
-        else:
-            rv.sort(key=lambda a : renpy.filter_text_tags(a[1], allow=[]).lower())
+        rv.sort(key=lambda a : renpy.filter_text_tags(a[1], allow=[]).lower())
 
         rv.insert(0, (None, "English"))
 
-        # Cause Ren'Py 6 sets this as float, set it as int
-        bound = int(math.ceil(len(rv)/2.))
+        bound = math.ceil(len(rv)/2.)
 
         return (rv[:bound], rv[bound:2*bound])
 
@@ -525,7 +514,7 @@ screen navigation():
             if renpy.variant("pc"):
 
                 ## Help isn't necessary or relevant to mobile devices.
-                #textbutton _("Help") action OpenURL("https://github.com/GanstaKingofSA/DDLCModTemplate2.0")
+                textbutton _("Help") action [Help("README.html"), Show(screen="dialog", message="The help file has been opened in your browser.", ok_action=Hide("dialog"))]
 
                 ## The quit button is banned on iOS and unnecessary on Android.
                 textbutton _("Quit") action Quit(confirm=not main_menu)
@@ -819,7 +808,7 @@ screen about():
                 ## Do not touch/remove these unless the © or – symbol isn't available in your font.
                 ## You may add things above or below it.
                 ## If you are not going with a splashscreen option, this first line MUST stay in the mod.
-                text "Made with bronya_rands's {a=https://github.com/GanstaKingofSA/DDLCModTemplate2.0}DDLC Mod Template 2.0{/a}.\nCopyright © 2019-" + str(datetime.date.today().year) + " Azariel Del Carmen (bronya_rand). All rights reserved.\n"
+                text "Made with bronya_rand's {a=https://github.com/GanstaKingofSA/DDLCModTemplate2.0}DDLC Mod Template 2.0{/a}\nCopyright © 2019-" + str(datetime.date.today().year) + " Azariel Del Carmen (bronya_rand). All rights reserved.\n"
                 text "Doki Doki Literature Club. Copyright © 2017 Team Salvato. All rights reserved.\n"
                 text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n[renpy.license!t]")
 
@@ -1258,28 +1247,63 @@ screen template_preferences():
             
             textbutton _("Change Name") action Show(screen="name_input", message="Please enter your name", ok_action=Function(FinishEnterName, launchGame=False)):
                 text_style "navigation_button_text"
+        
+        python:
+            has_discord_module = True
+            try:
+                RPC
+            except NameError:
+                has_discord_module = False
 
-        null height (4 * gui.pref_spacing)
+        if not renpy.android and has_discord_module:
+            vbox:
+                style_prefix "name"
+                label _("Discord RPC")
 
-        hbox:
-            box_wrap True
+                python:
+                    connect_status = _("Disconnected")
+                    if not persistent.enable_discord:
+                        connect_status = _("Disabled")
+                    if RPC.rpc_connected:
+                        connect_status = _("Connected")
+                
+                null height 3
 
-            if enable_languages and translations:
-                vbox:
-                    style_prefix "radio"
-                    label _("Language")
-                    hbox:
-                        viewport:
-                            mousewheel True
-                            scrollbars "vertical"
-                            ysize 120
-                            has vbox
+                text "[connect_status]" xalign 0.5
 
-                            for tran in translations:
-                                vbox:
-                                    for tlid, tlname in tran:
-                                        textbutton tlname:
-                                            action Language(tlid)
+                python:
+                    enable_text = _("Enable")
+                    if persistent.enable_discord:
+                        enable_text = _("Disable")
+
+                textbutton enable_text action [ToggleField(persistent, "enable_discord"), 
+                    If(persistent.enable_discord, Function(RPC.close), Function(RPC.connect, reset=True))]:
+                        text_style "navigation_button_text"
+                if persistent.enable_discord and not RPC.rpc_connected:
+                    textbutton _("Reconnect") action Function(RPC.connect, reset=True):
+                        text_style "navigation_button_text"
+
+    null height (4 * gui.pref_spacing)
+
+    hbox:
+        box_wrap True
+
+        if enable_languages and translations:
+            vbox:
+                style_prefix "radio"
+                label _("Language")
+                hbox:
+                    viewport:
+                        mousewheel True
+                        scrollbars "vertical"
+                        ysize 120
+                        has vbox
+
+                        for tran in translations:
+                            vbox:
+                                for tlid, tlname in tran:
+                                    textbutton tlname:
+                                        action Language(tlid)
 
 ## Preferences screen ##########################################################
 ##
@@ -1426,60 +1450,41 @@ style value_text:
 
 screen history():
     tag menu
+    
+    ## Avoid predicting this screen, as it can be very large.
     predict False
 
     use game_menu(_("History"), scroll=("vpgrid" if gui.history_height else "viewport")):
+        
         style_prefix "history"
+       
         for h in _history_list:
+            
             window:
+                
+                ## This lays things out properly if history_height is None.
                 has fixed:
                     yfit True
+
                 if h.who:
+
                     label h.who:
                         style "history_name"
+                        substitute False
+                        
+                        ## Take the color of the who text from the Character, if
+                        ## set.
                         if "color" in h.who_args:
                             text_color h.who_args["color"]
-                $ what = filter_text_tags(h.what, allow=set([]))
+
+                $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
                 text what:
                     substitute False
+
         if not _history_list:
             label _("The dialogue history is empty.")
 
-python early:
-    import renpy.text.textsupport as textsupport
-    from renpy.text.textsupport import TAG, PARAGRAPH
-    
-    def filter_text_tags(s, allow=None, deny=None):
-        if (allow is None) and (deny is None):
-            raise Exception("Only one of the allow and deny keyword arguments should be given to filter_text_tags.")
-
-        if (allow is not None) and (deny is not None):
-            raise Exception("Only one of the allow and deny keyword arguments should be given to filter_text_tags.")
-
-        tokens = textsupport.tokenize(unicode(s))
-
-        rv = [ ]
-
-        for tokentype, text in tokens:
-
-            if tokentype == PARAGRAPH:
-                rv.append("\n")
-            elif tokentype == TAG:
-                kind = text.partition("=")[0]
-
-                if kind and (kind[0] == "/"):
-                    kind = kind[1:]
-
-                if allow is not None:
-                    if kind in allow:
-                        rv.append("{" + text + "}")
-                else:
-                    if kind not in deny:
-                        rv.append("{" + text + "}")
-            else:
-                rv.append(text.replace("{", "{{"))
-
-        return "".join(rv)
+define gui.history_allow_tags = set()
 
 style history_window is empty
 
@@ -1707,7 +1712,8 @@ screen name_input(message, ok_action):
                 style "confirm_prompt"
                 xalign 0.5
 
-            input default "" value VariableInputValue("player") length 12 allow "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+            input default "" value VariableInputValue("player") length 12 allow "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+            #additionally added Cyrillic characters to support Russian names for MC
 
             hbox:
                 xalign 0.5

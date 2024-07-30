@@ -61,7 +61,7 @@ init python:
         # These commented variables sets all keybinds from Rollback to History.
         # config.keymap["rollback"] = []
         # config.keymap["history"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK', 'mousedown_4' ]
-    
+
     # These variable declarations adjusts the mapping for certain actions in-game.
     config.keymap['game_menu'].remove('mouseup_3')
     config.keymap['hide_windows'].append('mouseup_3')
@@ -332,7 +332,7 @@ image glitch_color2:
 # This is where the characters bodies and faces are defined in the mod.
 # They are defined by a left half, a right half and their head.
 # To define a new image, declare a new image statement like in this example:
-#     image sayori 1ca = im.Composite((960, 960), (0, 0), "mod_assets/sayori/1cl.png", (0, 0), "mod_assets/sayori/1cr.png", (0, 0), "sayori/a.png")
+#     image sayori 1ca = Composite((960, 960), (0, 0), "mod_assets/sayori/1cl.png", (0, 0), "mod_assets/sayori/1cr.png", (0, 0), "sayori/a.png")
 
 # Sayori's Character Definitions
 image sayori 1 = im.Composite((960, 960), (0, 0), "sayori/1l.png", (0, 0), "sayori/1r.png", (0, 0), "sayori/a.png")
@@ -891,7 +891,7 @@ image natsuki 5 = im.Composite((960, 960), (18, 22), "natsuki/1t.png", (0, 0), "
 
 # This image shows the realistic mouth on Natsuki on a random playthrough
 # of Act 2.
-#image natsuki mouth = LiveComposite((960, 960), (0, 0), "natsuki/0.png", (390, 340), "n_rects_mouth", (480, 334), "n_rects_mouth")
+#image natsuki mouth = im.Composite((960, 960), (0, 0), "natsuki/0.png", (390, 340), "n_rects_mouth", (480, 334), "n_rects_mouth")
 
 # This image shows black rectangles on Natsuki on a random playthrough
 # of Act 2.
@@ -1201,7 +1201,7 @@ image yuri stab_2 = "yuri/stab/2.png"
 image yuri stab_3 = "yuri/stab/3.png"
 image yuri stab_4 = "yuri/stab/4.png"
 image yuri stab_5 = "yuri/stab/5.png"
-image yuri stab_6 = LiveComposite((960,960), (0, 0), "yuri/stab/6-mask.png", (0, 0), "yuri stab_6_eyes", (0, 0), "yuri/stab/6.png")
+image yuri stab_6 = im.Composite((960,960), (0, 0), "yuri/stab/6-mask.png", (0, 0), "yuri stab_6_eyes", (0, 0), "yuri/stab/6.png")
 
 # This image transform animates Yuri's eyes on her 6th stabbing in Act 2.
 image yuri stab_6_eyes:
@@ -1232,7 +1232,7 @@ image yuri stab_6_eyes:
 
 # These images shows Yuri with a offcenter right eye moving slowing away
 # from her face.
-#image yuri oneeye = LiveComposite((960, 960), (0, 0), "yuri/1l.png", (0, 0), "yuri/1r.png", (0, 0), "yuri/oneeye.png", (0, 0), "yuri oneeye2")
+#image yuri oneeye = im.Composite((960, 960), (0, 0), "yuri/1l.png", (0, 0), "yuri/1r.png", (0, 0), "yuri/oneeye.png", (0, 0), "yuri oneeye2")
 #image yuri oneeye2:
 #    "yuri/oneeye2.png"
 #    subpixel True
@@ -1264,7 +1264,7 @@ image yuri glitch2:
     "yuri 1"
 
 # These image declarations show Yuri's moving eyes in Act 2.
-#image yuri eyes = LiveComposite((1280, 720), (0, 0), "yuri/eyes1.png", (0, 0), "yuripupils")
+#image yuri eyes = im.Composite((1280, 720), (0, 0), "yuri/eyes1.png", (0, 0), "yuripupils")
 
 # This image shows the base of Yuri's sprite as her eyes move.
 #image yuri eyes_base = "yuri/eyes1.png"
@@ -1580,7 +1580,7 @@ default persistent.menu_bg_m = None
 default persistent.first_load = None
 default persistent.first_poem = None
 default persistent.seen_colors_poem = None
-default persistent.monika_back = False
+default persistent.monika_back = None
 default persistent.newchars = False
 default gwynnbugsfixed = False
 
@@ -1606,9 +1606,7 @@ default m_name = "Monika"
 default n_name = "Natsuki"
 default y_name = "Yuri"
 default d_name = "Gwynn"
-default a_name = "Nastya"
 default l_name = "Libitina"
-default k_name = "Kotonoha"
 
 
 # Poem Variables
@@ -1636,12 +1634,6 @@ default m_readpoem = False
 
 # This variable keeps track on how many people have read your poem.
 default poemsread = 0
-
-# These variables store the appeal a character has to your poem
-default n_appeal = 0
-default s_appeal = 0
-default y_appeal = 0
-default m_appeal = 0
 
 # These variables control if we have seen Natsuki's or Yuri's exclusive scenes
 default n_exclusivewatched = False

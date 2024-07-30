@@ -41,7 +41,7 @@ label poemresponse_start:
     #    if persistent.playthrough == 2:
     #        $ pt = "2"
     #    else:
-            $ pt = ""
+        $ pt = ""
 
         # This if/else statement determines what MC will say in the poem selection
         # menu depending on how many poems you have read.
@@ -99,7 +99,7 @@ label poemresponse_start:
         
         # This if/else statement checks if we have not yet read 3 poems for Act 2 
         # or if we are in Act 1 and haven't read 4 poems.
-        if poemsread < 4:
+        if poemsread < 3 or (persistent.playthrough == 0 and poemsread < 4):
             jump poemresponse_loop
 
     # These variables resets the read poem variables back to normal.
@@ -128,13 +128,13 @@ label poemresponse_sayori:
     
     # These variables sets the next scene chapter to be called based off the
     # chapter and poem opinion and calls it.
-    $ nextscene = "ch" + str(chapter) + "_s_" + poemopinion
+    $ nextscene = "ch" + pt + str(chapter) + "_s_" + poemopinion
     call expression nextscene
     
     # This if statement checks if we are not skipping the poems to call the
     # end of the poem responses for Sayori depending on the chapter.
     if not skip_poem:
-        $ nextscene = "ch" + str(chapter) + "_s_end"
+        $ nextscene = "ch" + pt + str(chapter) + "_s_end"
         call expression nextscene
     return
 
@@ -154,13 +154,13 @@ label poemresponse_natsuki:
 
     # These variables sets the next scene chapter to be called based off the
     # chapter and poem opinion and calls it.
-    $ nextscene = "ch" + str(chapter) + "_n_" + poemopinion
+    $ nextscene = "ch" + pt + str(chapter) + "_n_" + poemopinion
     call expression nextscene
 
     # This if statement checks if we are not skipping the poems to call the
     # end of the poem responses for Natsuki depending on the chapter.
     if not skip_poem:
-        $ nextscene = "ch" + str(chapter) + "_n_end"
+        $ nextscene = "ch" + pt + str(chapter) + "_n_end"
         call expression nextscene
     return
 
@@ -176,11 +176,11 @@ label poemresponse_yuri:
     elif y_poemappeal[chapter - 1] > 0:
         $ poemopinion = "good"
 
-    $ nextscene = "ch" + str(chapter) + "_y_" + poemopinion
+    $ nextscene = "ch" + pt + str(chapter) + "_y_" + poemopinion
     call expression nextscene
 
     if not skip_poem:
-        $ nextscene = "ch" + str(chapter) + "_y_end"
+        $ nextscene = "ch" + pt + str(chapter) + "_y_end"
         call expression nextscene
     return
 
@@ -196,20 +196,20 @@ label poemresponse_monika:
     elif m_poemappeal[chapter - 1] > 0:
         $ poemopinion = "good"
 
-    $ nextscene = "ch" + str(chapter) + "_m_start"
+    $ nextscene = "ch" + pt + str(chapter) + "_m_start"
     call expression nextscene
 
     if not skip_poem:
-        $ nextscene = "ch" + str(chapter) + "_m_end"
+        $ nextscene = "ch" + pt + str(chapter) + "_m_end"
         call expression nextscene
     return
 
 ## Poem End Labels 
 # These labels define the end result of the poem sharing mini-game with the girls.
 label ch1_y_end:
-    $ show_poem (poem_y1)
+    call showpoem (poem_y1, img="yuri 3t")
     y 3t "..."
-    y "...I'm sorry I have such terrible handwriting."
+    y "I...I'm sorry I have such terrible handwriting!"
     mc "What??"
     mc "I wasn't thinking that at all..."
     y 2v "But it took you a long time to read..."
@@ -217,13 +217,13 @@ label ch1_y_end:
     mc "Well, I just don't read script very often..."
     mc "I think your handwriting is pretty, actually."
     y 2t "Eh?"
-    y 2u "That's a relief..."
+    y 2u "That's...a relief..."
     mc "Also, I liked the poem."
     mc "Even though it's short, it was really descriptive."
     y 2t "It wasn't too short?"
     y "I usually write longer poems..."
     mc "Not at all."
-    y 1m "I'm really glad you like it."
+    y 1m "I'm...really glad you like it."
     y "I'll be honest..."
     y 1a "Since it's our first time sharing, I wanted to write something a little more mild."
     y "Something easy to digest, I suppose."
@@ -275,7 +275,7 @@ label ch1_y_end:
     return
 
 label ch2_y_end:
-    $ show_poem (poem_y2)
+    call showpoem (poem_y2)
     y 2m "Um..."
     y "I was a little more daring with this one than yesterday's..."
     mc "I can see that."
@@ -325,7 +325,7 @@ label ch2_y_end:
         y "The best we can do is respect each other and our individualities."
         y "Even if it's difficult sometimes, and some things make us uncomfortable..."
     y 1a "After all, if I hadn't learned to embrace my own weirdness, I would probably hate myself."
-    y 2u "I might be ranting a little bit now..."
+    y 2u "I-I might be ranting a little bit now..."
     y "...But I'm glad that you're such a good listener."
     # This if statement checks if Yuri's appeal to your poems is 2 or more.
     if chibi_y.appeal >= 2:
@@ -350,7 +350,7 @@ label ch3_y_end:
     # special poem instead.
     if chibi_y.appeal >= 3:
         jump ch3_y_end_special
-    $ show_poem (poem_y3)
+    call showpoem (poem_y3, img="yuri 2v")
     y "Um..."
     y "I'm aware that the beach is kind of an inane thing to write about."
     y "But I did my best to take a metaphorical approach to it."
@@ -392,7 +392,7 @@ label ch3_y_end:
     return
 
 label ch3_y_end_special:
-    $ show_poem (poem_y3b)
+    call showpoem (poem_y3b, img="yuri 4b")
     "Finishing the poem, I start to hand it back to Yuri."
     "But instead of taking it from me, she looks away."
     y "..."
@@ -445,7 +445,7 @@ label ch3_y_end_special:
     return
 
 label ch1_n_end:
-    $ show_poem (poem_n1)
+    call showpoem (poem_n1, img="natsuki 2s")
     n 2q "Yeah..."
     n "I told you that you weren't gonna like it."
     mc "I like it."
@@ -491,7 +491,7 @@ label ch1_n_end:
     return
 
 label ch2_n_end:
-    $ show_poem (poem_n2)
+    call showpoem (poem_n2)
     n 2a "Not bad, right?"
     mc "It's quite a bit longer than yesterday's."
     n 2w "Yesterday's was way too short..."
@@ -566,7 +566,7 @@ label ch3_n_end:
 
     if chibi_n.appeal >= 3:
         jump ch3_n_end_special
-    $ show_poem (poem_n3)
+    call showpoem (poem_n3)
     n 2a "Yeah..."
     n "I felt like I kept writing about negative things, so I wanted to write something with a nice message for once."
     n 2z "Besides...the beach is awesome!"
@@ -600,7 +600,7 @@ label ch3_n_end:
     return
 
 label ch3_n_end_special:
-    $ show_poem (poem_n3b)
+    call showpoem (poem_n3b)
     n 1q "..."
     n "...Why are you looking at me like that?"
     n "If you don't like it, then just say it."
@@ -656,7 +656,7 @@ label ch3_n_end_special:
     return
 
 label ch1_s_end:
-    $ show_poem (poem_s1)
+    call showpoem (poem_s1)
     mc "Sayori..."
     mc "This is just a guess, but..."
     mc "Did you wait until this morning to write this?"
@@ -689,7 +689,7 @@ label ch1_s_end:
     return
 
 label ch2_s_end:
-    $ show_poem (poem_s2)
+    call showpoem (poem_s2)
     mc "Holy crap..."
     mc "Sayori, did you really write this?"
     s 2j "Of course I did!"
@@ -726,7 +726,7 @@ label ch3_s_end:
     return
 
 label ch1_m_end:
-    $ show_poem (poem_m1)
+    call showpoem (poem_m1)
 
 label ch1_m_end2:
     m 1a "So...what do you think?"
@@ -740,7 +740,7 @@ label ch1_m_end2:
     m "Ah..."
     m 3d "Well, I'm not sure if I know how to put it..."
     m "I wrote it a while ago..."
-    m "And things have changed alot since then."
+    m "And things have changed a lot since then."
     m 3a "I guess you could say that I had some kind of epiphany at that time."
     m "It influenced my poems quite a bit."
     mc "An epiphany?"
@@ -760,7 +760,7 @@ label ch1_m_end2:
     return
 
 label ch2_m_end:
-    $ show_poem (poem_m2)
+    call showpoem (poem_m2)
     mc "Hm..."
     mc "It's even more abstract than your last one, huh?"
     m 5 "Ahaha..."
@@ -793,7 +793,7 @@ label ch2_m_end:
     return
 
 label ch3_m_end:
-    $ show_poem (poem_m3)
+    call showpoem (poem_m3)
     m 1a "You know..."
     m "I feel like learning and looking for answers are the sorts of things that give life meaning."
     m 1e "Not to get too philosophical or anything..."
@@ -2440,7 +2440,7 @@ label ch1_m_start:
     m 2a "...Mhm!"
     # This variable and call expression statement sets the 'nextscene' variable to
     # the character you wrote your poem to and calls it.
-    $ nextscene = "m_" + poemwinner[0] + "_" + str(chapter)
+    $ nextscene = "m_" + poemwinner[0] + "_" + str(eval("chibi_" + poemwinner[0][0] + ".appeal"))
     call expression nextscene
 
     mc "I'm sure I'll end up trying different things a lot."
@@ -2490,7 +2490,7 @@ label ch2_m_start:
         "I give my poem to Monika."
         m "..."
         m "...Alright!"
-        $ nextscene = "m_" + poemwinner[1] + "_" + str(chapter)
+        $ nextscene = "m_" + poemwinner[1] + "_" + str(eval("chibi_" + poemwinner[1][0] + ".appeal"))
         call expression nextscene
 
         m 1a "But anyway..."
@@ -2518,7 +2518,7 @@ label ch3_m_start:
         mc "Sure..."
         "I let Monika take the poem I'm holding in my hands."
         m "..."
-        $ nextscene = "m_" + poemwinner[2] + "_" + str(chapter)
+        $ nextscene = "m_" + poemwinner[2] + "_" + str(eval("chibi_" + poemwinner[2][0] + ".appeal"))
         call expression nextscene
 
         m 1a "Anyway...!"
