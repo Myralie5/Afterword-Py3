@@ -61,6 +61,7 @@ image splash_warning = ParameterizedText(style="splash_text", xalign=0.5, yalign
 
 # This image shows the DDLC logo in the normal DDLC position.
 image menu_logo:
+<<<<<<< HEAD
     choice:
         "mod_assets/Gwynn Sprites/overall/Logo.png"
     choice:
@@ -69,6 +70,9 @@ image menu_logo:
         "mod_assets/Gwynn Sprites/overall/Logo.png"
     choice:
         "mod_assets/Gwynn Sprites/overall/Logo2.png"
+=======
+    "mod_assets/DDLCModTemplateLogo.png"
+>>>>>>> 7794aa01975c3d768f8f5b6d268fad262943458d
     # im.Composite((512, 512), (0, 0), recolorize("mod_assets/logo_bg.png"), (0, 0), "mod_assets/logo_fg.png")
     subpixel True
     xcenter 240
