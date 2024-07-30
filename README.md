@@ -11,7 +11,7 @@
 Afterword is based on a mod template made by Azariel Del Carmen (bronya_rand) for the **original** Doki Doki Literature Club that adheres to [Team Salvato's IP Guidelines](http://teamsalvato.com/ip-guidelines/) for fan mods on Ren'Py 8.
 
 > Additionaly [here](./CREDITS.md) are all the contributors that contributed to the template.
-> Thetemplate and the mod itself are not afilliated in any way with Team Salvato.
+> The template and the mod itself are not afilliated in any way with Team Salvato.
 
 The template used belongs to bronya_rand. Copyright © 2019-2023 Azariel Del Carmen (bronya_rand). All rights reserved.
 
