@@ -33,15 +33,15 @@ label poemresponse_start:
         if not renpy.music.get_playing():
             play music t5
 
-    #label poemresponse_start2:
-    #    $ skip_poem = False
-    #    
-    #    # This if/else statement checks if we are in Act 2 to show Act 2 specific
-    #    # poems.
-    #    if persistent.playthrough == 2:
-    #        $ pt = "2"
-    #    else:
-        $ pt = ""
+    label poemresponse_start2:
+        $ skip_poem = False
+        
+        # This if/else statement checks if we are in Act 2 to show Act 2 specific
+        # poems.
+        if persistent.playthrough == 2:
+            $ pt = "2"
+        else:
+            $ pt = ""
 
         # This if/else statement determines what MC will say in the poem selection
         # menu depending on how many poems you have read.
@@ -59,12 +59,12 @@ label poemresponse_start:
 
             # This will show Sayori as a menu option IF you haven't shared your
             # poem to her and you are in Act 1.
-            "Sayori" if not s_readpoem:
+            "Sayori" if not s_readpoem and persistent.playthrough == 0:
                 # This variable sets that you have read Sayori's poem.
                 $ s_readpoem = True
                 if chapter == 1 and poemsread == 0:
                     "I'm definitely most comfortable sharing it with Sayori first."
-                    "She's my best friend, after all."
+                    "She's my good friend, after all."
                 # This call statement calls Sayori's poem response script.
                 call poemresponse_sayori
 
@@ -73,8 +73,8 @@ label poemresponse_start:
             "Natsuki" if not n_readpoem:
                 $ n_readpoem = True
                 if chapter == 1 and poemsread == 0:
-                    "Natsuki was so scared yesterday."
-                    "I should ask if she's good for the plan."
+                    "I told Natsuki I was interested in her poems yesterday."
+                    "It's probably only fair if I shared mine with her first."
                 call poemresponse_natsuki
 
             # This will show Yuri as a menu option IF you haven't shared your
@@ -83,15 +83,14 @@ label poemresponse_start:
                 $ y_readpoem = True
                 if chapter == 1 and poemsread == 0:
                     "Yuri seems the most experienced, so I should start with her."
-                    "Plus, she can tell me more about the ambiguous 'before'."
+                    "I can trust her opinion to be fair."
                 call poemresponse_yuri
 
             "Monika" if not m_readpoem:
                 $ m_readpoem = True
                 if chapter == 1 and poemsread == 0:
                     "I should start with Monika."
-                    "Everyone seems so angry at her."
-                    "Maybe I can ask her about their implied history."
+                    "Yesterday she seemed eager to read my poem, and I want her to know I'm putting in effort."
                 call poemresponse_monika
 
         # This variable increases the poems read by 1.
@@ -215,7 +214,7 @@ label ch1_y_end:
     y 2v "But it took you a long time to read..."
     mc "Ah--"
     mc "Well, I just don't read script very often..."
-    mc "I think your handwriting is pretty, actually."
+    mc "I actually think your handwriting is pretty."
     y 2t "Eh?"
     y 2u "That's...a relief..."
     mc "Also, I liked the poem."
@@ -243,7 +242,7 @@ label ch1_y_end:
     mc "That's impressive."
     if poemopinion == "good":
         y 2f "Eh?"
-        y 3v "It's nothing big, really!"
+        y 3v "I-It's nothing, really!"
         y "Yours was impressive too, so..."
         mc "Nah..."
         mc "If anything, I could probably learn a thing or two from you."
@@ -253,7 +252,7 @@ label ch1_y_end:
         y 2s "You know..."
         y "I was really nervous about doing all this."
         y "But in the end, I enjoyed it."
-        y "I'm going to keep doing my best, [player]."
+        y "I'm going to keep doing my best for you, [player]."
         mc "Ah..."
         mc "Me too."
     else:
@@ -263,15 +262,6 @@ label ch1_y_end:
         mc "Yeah, maybe you're right."
         mc "I guess I'll have to keep trying."
         y "I'm counting on you."
-    if poemsread == 0:
-        pause 1.0
-        mc "Yuri..."
-        y 1f "Yeah?"
-        mc "I wanted to ask you about..."    
-        mc "...The 'before' you mentioned."
-        $ y_firstpoem = True
-        y 3h "..."
-        y "... we shouldn't talk about that here and now." 
     return
 
 label ch2_y_end:
@@ -326,7 +316,7 @@ label ch2_y_end:
         y "Even if it's difficult sometimes, and some things make us uncomfortable..."
     y 1a "After all, if I hadn't learned to embrace my own weirdness, I would probably hate myself."
     y 2u "I-I might be ranting a little bit now..."
-    y "...But I'm glad that you're such a good listener."
+    y "...But I'm glad that you're a good listener."
     # This if statement checks if Yuri's appeal to your poems is 2 or more.
     if chibi_y.appeal >= 2:
         y 2s "You're good at a lot of things..."
@@ -476,18 +466,6 @@ label ch1_n_end:
     mc "Yeah...guess not."
     "I decide to humor her with that last comment."
     "I don't really care how old everyone is, but if Natsuki is feeling proud then I won't take that away from her."
-    if poemsread == 0:
-        mc "Also, Natsuki, I was wondering if I could ask you..."
-        mc "Are you good for the plan?"
-        n "Yeah, totally."
-        $ n_firstpoem == True
-    mc "I hope this isn't embarassing or something..."
-    show natsuki 5m at t11 zorder 1
-    mc "But, are you okay?"
-    n 12a "..."
-    n "I'm trying to hold it together..."
-    n 12c "I appreciate your concern."
-    n 1t "(God, I sound like Yuri...)"
     return
 
 label ch2_n_end:
@@ -682,6 +660,7 @@ label ch1_s_end:
     mc "Anyway, thanks for showing me."
     s 1q "Ehehe~"
     s "This was so much fun."
+    s "Monika's the best!"
     mc "Ah...yeah."
     s "But next time, I won't forget."
     s 4x "And I'm gonna write the best poem ever!"
@@ -730,7 +709,7 @@ label ch1_m_end:
 
 label ch1_m_end2:
     m 1a "So...what do you think?"
-    mc "Hmm...it's very...freeform."
+    mc "Hmm...it's very...freeform, if that's what you call it."
     mc "Sorry, I'm not really the right person to ask for feedback..."
     m 2e "Ahaha. It's okay."
     m 2b "Yeah, that kind of style has gotten pretty popular nowadays."
@@ -739,14 +718,12 @@ label ch1_m_end2:
     mc "What was the inspiration behind this one?"
     m "Ah..."
     m 3d "Well, I'm not sure if I know how to put it..."
-    m "I wrote it a while ago..."
-    m "And things have changed a lot since then."
-    m 3a "I guess you could say that I had some kind of epiphany at that time."
-    m "It influenced my poems quite a bit."
+    m 3a "I guess you could say that I had some kind of epiphany recently."
+    m "It's been influencing my poems a bit."
     mc "An epiphany?"
     m 1a "Yeah...something like that."
-    m "I'm kind of nervous to talk about deep stuff like that, because it brings back memories that..."
-    m 1n "...Aren't very...comfortable for me."
+    m "I'm kind of nervous to talk about deep stuff like that, because it's kind of coming on strongly..."
+    m "Maybe after everyone is better friends with each other."
     m 1j "Anyway..."
     m 3b "Here's Monika's Writing Tip of the Day!"
     m "Sometimes when you're writing a poem - or a story - your brain gets too fixated on a specific point..."
@@ -1457,8 +1434,10 @@ label ch1_s_bad:
         s "Trying new things like this for other people..."
         s 2q "That's something that only really good people do!"
         mc "Thanks...Sayori."
-        "She seems so much more like herself today."
-        "This is a good sign for the...tensions between her and Monika."
+        "...I'm not sure if Sayori sees the full picture of my motive here."
+        "Then again..."
+        "I can't deny that she's part of the reason I joined."
+        "Knowing how much this means to her and all..."
         s 1x "Yeah."
         s "And I'm gonna make sure you have lots of fun here, okay?"
         s "That will be my way of thanking you~"
@@ -1931,7 +1910,6 @@ label ch1_y_bad:
         y "Sorry..."
         mc "It's fine."
         "I'm not sure if Yuri is apologizing to herself, to me, or to Natsuki."
-        "Maybe to all three."
         mc "Do you mind if I read your poem now?"
         y 3c "Please do!"
         y "I'd love to share my thought process behind it..."
@@ -1947,8 +1925,23 @@ label ch1_y_good:
     y 1e "..."
     "As Yuri reads the poem, I notice her eyes lighten."
     y 2f "...Exceptional."
+    mc "Eh? What was that?"
+    y "...?"
+    y 2n "D-Did I say that out loud...?"
+    "Yuri first covers her mouth, but then ends up covering her whole face."
+    y 4c "I...!"
+    y "Uu..."
+    y "{i}(He's going to hate me...){/i}"
+    mc "Um..."
+    mc "You really didn't do anything wrong, Yuri..."
+    y 4a "Eh...?"
+    y "That's..."
+    y 2q "I-I guess you're right..."
+    y "What am I getting so nervous for?"
+    y "A-Ahaha..."
     show yuri 2l at t11
     "Yuri takes a breath."
+    y "So..."
     y 1a "What kind of writing experience do you have?"
     y "Your use of imagery and metaphors indicates you've written a lot of poetry before."
     mc "Really...?"
@@ -2422,8 +2415,6 @@ label ch1_m_start:
     m "If you ever have any suggestions for the club, like new activities, or things we can do better..."
     m 4b "I'm always listening!"
     m "Don't be afraid to bring things up, okay?"
-    pause 1.0
-    m "To Sayori, of course."
     show monika 4a
     mc "Alright...I'll keep that in mind."
     "Of course I'll be afraid to bring things up."

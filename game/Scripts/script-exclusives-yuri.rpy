@@ -1,4 +1,6 @@
-label yuri_exclusivex_1:
+label yuri_exclusive_1:
+    scene bg club_day
+    with wipeleft_scene
     "I'm really curious to talk to Yuri a little bit more..."
     "But at the same time, I would feel bad for distracting her from reading."
     "I catch a glimpse of the cover of her book."
@@ -201,29 +203,48 @@ label yuri_exclusivex_1:
     y 3q "A-Ah--"
     y "What are you saying all of a sudden...?"
     y "I...!"
-    y "Um..."
-    "That got very awkward very fast."
-    "However,{nw}"
-    show screen tear(20, 0.1, 0.1, 0, 32)
-    pause 0.25
-    hide screen tear
-    show yuri 3n at t11 zorder 1
-    y 3n "I..."
-    y 3f "What... just happened?"
-    show yuri at thide
+    show monika 4 at l31
+    m "Okay, everyone!"
+    show yuri 3n at h11
+    y "...!"
+    show monika zorder 3 at f31
+    m "I think it's about time we share today's poems with each other."
+    m "We might not have enough time if we wait too long."
+    show monika zorder 2 at t31
+    show yuri zorder 3 at f11
+    y 3w "Ah..."
+    "Yuri exhales, spared from finishing her thought."
+    show yuri zorder 2 at t11
+    show monika zorder 3 at f31
+    m 1 "Is that alright, Yuri?"
+    m "You look kind of down..."
+    m "I'm sorry if you haven't been looking forward to this..."
+    show monika zorder 2 at t31
+    show yuri zorder 3 at f11
+    y 3v "Ah, it's not..."
+    y "...It's fine."
+    show yuri zorder 2 at t11
+    show monika zorder 1 at thide
+    hide monika
+    "Yuri releases her hand from the book, causing it to close on top of my thumb."
+    mc "Alright..."
+    mc "I guess I'll do some more reading tonight."
+    mc "Or would you prefer I only read it with you?"
+    y 2f "Um...!"
+    y "I...guess I don't have too much of a preference either way..."
+    mc "Hmm..."
+    mc "In that case, I'll read a little more tonight."
+    mc "It'll be more fun to read with you after it picks up a bit, you know?"
+    y 2a "That's good reasoning."
+    y "In that case, feel free to finish the first two chapters in your own time."
+    mc "Alright!"
+    show yuri zorder 1 at thide
     hide yuri
-    "I look around the room."
-    "Natsuki's manga is on the ground, and Natsuki seems confused how they got there."
-    pause 1.0
-    "Monika seems shaken, and so does Sayo."
-    pause 1.0
-    show sayori 1k at l41
-    s "Ummm..."
-    s 1l "If everyone's ready, let's share poems."
-    "Yuri and I look at each other, just a little mystified."
+    "I stand up."
+    "I make a mental note of where I left off in the book, then slip it back into my bag."
     return
 
-label yuri_exclusivex_2:
+label yuri_exclusive_2:
     $ y_exclusivewatched = True
     play music t6 fadeout 1.0
     scene bg club_day
@@ -238,7 +259,7 @@ label yuri_exclusivex_2:
     y "I was kind of just waiting for you..."
     show yuri 2a
     mc "Ah, if that's the case..."
-label yuri_exclusivex_2_ch3:
+label yuri_exclusive_2_ch3:
     mc "Why don't we go ahead and get started?"
     y 2c "Yes, let's!"
     y 3a "Actually, I have a request..."

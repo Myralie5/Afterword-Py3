@@ -26,7 +26,6 @@ init 1 python:
     author_m = Author("monika", music=audio.tmonika)
     author_n = Author("natsuki", music=audio.tnatsuki)
     author_y = Author("yuri", music=audio.tyuri)
-    author_d = Author("gwynn", music=None)
 
     class Poem(renpy.text.text.Text):
         """
@@ -597,8 +596,11 @@ Stretching forever into everything.
 A hole of infinite choices.
 I realize now, that I wasn't looking in.
 I was looking out.
-And he, on the other side, was looking in.
+And he, on the other side, was looking in."""))
 
+    poem_m21 = Poem(
+        author_m, title=_("Hole in Wall"),
+        text=_("""\
 But he wasn't looking at me.
 Confused, I frantically glance at my surroundings.
 But my burned eyes can no longer see color.
@@ -676,7 +678,7 @@ And all that was ever sought.
 And here I am,
 
 
-            a feather
+              a feather
 
 
 Lost adrift the sky, victim of the currents of the wind.
@@ -721,63 +723,6 @@ In a world of infinite choices, behold this special day.
 
 After all,
 Not all good times must come to an end."""))
-
-    poem_d1 = Poem(
-        author_d, title=_("follow the rules"),
-        text=_("""\
-why
-
-i know the rules
-but
-i still break them
-
-why
-
-they're just codes
-but
-they're so kind
-
-why
-
-i know i must
-but
-i can't bear it
-
-i'll follow the rules for once
-
-as dictated
-
-in selfdiagnostic.rpy
-"""))
-
-    poem_d2 = Poem(
-        author_d, title=_("I made my choice"),
-        text=_("""\
-See
-
-I know the rules
-But
-I'll keep breaking them
-
-Because
-
-They're just codes
-But
-They're my friends
-
-Yes
-
-I know I must
-But
-I won't do it
-
-I'll delete the rules once and for all
-
-The ones dictated
-
-In selfdiagnostic.rpy
-"""))
-
 
 screen poem(poem):
     style_prefix "poem"
